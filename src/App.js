@@ -9,6 +9,7 @@ import Discover from './component/Discover';
 import Messages from './component/Messages';
 import Notification from './component/Notification';
 import Profile from './component/Profile';
+import UserProfile from './component/UserProfile';
 
 function App() {
     return ( <Router>
@@ -18,6 +19,7 @@ function App() {
         <Route path = "/messages" component={Messages} className = "block leftNavBar link py-2" /> 
         <Route path = "/notifications" component={Notification} className = "block leftNavBar link py-2" /> 
         <Route path = "/" exact component = { LoginPage } /> 
+        <Route path = "/userprofile" component = { UserProfile } /> 
         </Router>
     );
 }
