@@ -5,10 +5,10 @@ import {userList} from '../utils/userData';
 class UserProfile extends React.Component{
 
     componentDidMount(){
-        main();
+        this.main();
     }
 
-    loadUserProfile () {
+    loadUserProfile = () => {
         fetch('http://35.178.90.181:8000/v1/profile/data/', {
             method: 'GET',
             headers: {
@@ -25,12 +25,12 @@ class UserProfile extends React.Component{
         }).catch(console.error)
     }
 
-    displayData(user) {
+    displayData = (user) => {
         document.querySelector('#profile-fname').innerHTML = user.first_name
         this.displayUserData()
     }
 
-    displayUserData() {
+    displayUserData = () => {
         fetch('http://35.178.90.181:8000/v1/profile/retrieve-profile/', {
             method: 'POST',
             headers: {
@@ -51,24 +51,24 @@ class UserProfile extends React.Component{
 
     }
 
-    main () {
-        window.user = localStorage.getItem('user')
+    main = () => {
+        window.user = localStorage.getItem('profile');      //localStorage.getItem('user')
         if (window.user) {
-            window.user = JSON.parse(user)
+            window.user = JSON.parse(window.user)
             this.displayData(window.user)
         } else {
             this.loadUserProfile()
         }
     }
 
-    editbio() {
+    editbio = () => {
         let user = window
         document.querySelector('#profile-about').innerHTML = `<input type="text" id="editedAbout" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="${window.user.about}">`
         document.querySelector('#editbio').classList.add('hidden')
         document.querySelector('#savebio').classList.remove('hidden')
     }
 
-    savebio() {
+    savebio = () => {
         const editedAbout = document.querySelector('#editedAbout').value
         document.querySelector('#editbio').classList.remove('hidden')
         document.querySelector('#savebio').classList.add('hidden')
@@ -91,7 +91,7 @@ class UserProfile extends React.Component{
         }).catch(console.error)
     }
 
-    sendConnect() {
+    sendConnect = () => {
         fetch('http://35.178.90.181:8000/v1/connections/send-request/', {
             method: 'POST',
             headers: {

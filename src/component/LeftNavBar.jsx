@@ -5,7 +5,7 @@ class LeftNavBar extends React.Component{
     constructor(props){
         super(props)
     }
-    logout() {
+    logout = () => {
         localStorage.clear();
     }
     render(){

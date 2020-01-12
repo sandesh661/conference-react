@@ -16,7 +16,7 @@ class Discover extends React.Component {
         this.rangeSelector();*/
     }
 
-    onTabbuttonClick(event, className){
+    onTabbuttonClick = (event, className) => {
         /*if (className === 'nearest') {
             console.log('show nearest')
             this.listProfiles(window.nearestProfiles)

@@ -5,10 +5,10 @@ import {userList, baseUrl} from '../utils/userData';
 class Profile extends React.Component {
 
     componentDidMount(){
-        //this.main();
+        this.main();
     }
 
-    loadUserProfile () {
+    loadUserProfile = () => {
         fetch(baseUrl + 'v1/profile/data/', {
             method: 'GET',
             headers: {
@@ -25,31 +25,31 @@ class Profile extends React.Component {
         }).catch(console.error)
     }
 
-    displayData(user) {
+    displayData = (user) => {
         document.querySelector('#profile-fname').innerHTML = user.first_name
         document.querySelector('#profile-fullname').innerHTML = `${user.first_name} ${user.last_name}`
         document.querySelector('#profile-about').innerHTML = user.about
     }
 
-    main () {
-        /*window.user = localStorage.getItem('user');
+    main = () => {
+        window.user = localStorage.getItem('profile');    //localStorage.getItem('user');
         console.log("XXX", window.user)
         if (window.user) {
-            window.user = JSON.parse(user)
+            window.user = JSON.parse(window.user)
             this.displayData(window.user)
         } else {
             this.loadUserProfile()
-        }*/
+        }
     }
 
-    editbio() {
+    editbio = () => {
         let user = window
         document.querySelector('#profile-about').innerHTML = `<input type="text" id="editedAbout" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="${window.user.about}">`
         document.querySelector('#editbio').classList.add('hidden')
         document.querySelector('#savebio').classList.remove('hidden')
     }
 
-    savebio() {
+    savebio = () => {
         const editedAbout = document.querySelector('#editedAbout').value
         document.querySelector('#editbio').classList.remove('hidden')
         document.querySelector('#savebio').classList.add('hidden')
