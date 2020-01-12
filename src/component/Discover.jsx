@@ -17,7 +17,7 @@ class Discover extends React.Component {
     }
 
     onTabbuttonClick = (event, className) => {
-        /*if (className === 'nearest') {
+        if (className === 'nearest') {
             console.log('show nearest')
             this.listProfiles(window.nearestProfiles)
         } else {
@@ -28,10 +28,10 @@ class Discover extends React.Component {
         document.querySelector(".tab-content."+className).classList.add("active");
 
         document.querySelector(".custom-tab-btn.active").classList.remove("active");
-        event.classList.add("active");*/
+        event.classList.add("active");
     }
-/*
-    rangeSelector(){
+
+    /*rangeSelector = () => {
         var slider = document.getElementById("myRange");
         var output = document.getElementById("radius");
         output.innerHTML = slider.value;
@@ -42,7 +42,7 @@ class Discover extends React.Component {
         }
     }
 
-    loadProfilesInRange () {
+    loadProfilesInRange = () => {
         let range = document.getElementById("myRange").value;
         fetch(baseUrl + 'v1/profile/nearby/?limit=20', {
             method: 'POST',
@@ -64,7 +64,7 @@ class Discover extends React.Component {
         }).catch(console.error)
     }
 
-    loadUserProfile () {
+    loadUserProfile = () => {
         fetch(baseUrl + 'v1/profile/data/', {
             method: 'GET',
             headers: {
@@ -81,7 +81,7 @@ class Discover extends React.Component {
         }).catch(console.error)
     }
 
-    getLocation() {
+    getLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function success(position) {
                 sendLocation(position.coords.latitude, position.coords.longitude)
@@ -93,7 +93,7 @@ class Discover extends React.Component {
         }
     }
 
-    sendLocation (latitude, longitude) {
+    sendLocation = (latitude, longitude) => {
         fetch(baseUrl + 'v1/profile/location/', {
             method: 'POST',
             headers: {
@@ -107,7 +107,7 @@ class Discover extends React.Component {
         })
     }
 
-    getRecommendations () {
+    getRecommendations = () => {
         let range = document.getElementById("myRange").value;
         fetch(baseUrl + 'v1/profile/recommendation/?limit=20', {
             method: 'POST',
@@ -126,7 +126,7 @@ class Discover extends React.Component {
         }).catch(console.error)
     }
 
-    listProfiles (profiles) {
+    listProfiles = (profiles) => {
         let usersList = ''
         let locations = []
 
@@ -187,10 +187,10 @@ class Discover extends React.Component {
                                 </div>
 
                                 <div className="flex">
-                                    <button onClick={this.onTabbuttonClick(this, 'nearest')} className="flex-1 custom-tab-btn active text-purple-800 text-xs hover:bg-purple-300 py-2 mr-2 rounded">
+                                    <button onClick={() => this.onTabbuttonClick(this, 'nearest')} className="flex-1 custom-tab-btn active text-purple-800 text-xs hover:bg-purple-300 py-2 mr-2 rounded">
                                         Nearest
                                     </button>
-                                    <button onClick={this.onTabbuttonClick(this, 'recommended')} className="flex-1 custom-tab-btn text-purple-800 text-xs hover:bg-purple-300 py-2 ml-2 rounded">
+                                    <button onClick={() => this.onTabbuttonClick(this, 'recommended')} className="flex-1 custom-tab-btn text-purple-800 text-xs hover:bg-purple-300 py-2 ml-2 rounded">
                                         Recommended
                                     </button>
                                 </div>
