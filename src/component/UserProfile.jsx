@@ -3,6 +3,116 @@ import LeftNavBar from './LeftNavBar';
 import {userList} from '../utils/userData';
 
 class UserProfile extends React.Component{
+
+    componentDidMount(){
+        main();
+    }
+
+    loadUserProfile () {
+        fetch('http://35.178.90.181:8000/v1/profile/data/', {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('key')}`
+            }
+        }).then(resp => {
+            if (!resp.ok) throw resp
+            return resp.json()
+        }).then(resp => {
+            window.user = resp;
+            this.displayData(resp)
+            localStorage.setItem('profile', JSON.stringify(resp))
+        }).catch(console.error)
+    }
+
+    displayData(user) {
+        document.querySelector('#profile-fname').innerHTML = user.first_name
+        this.displayUserData()
+    }
+
+    displayUserData() {
+        fetch('http://35.178.90.181:8000/v1/profile/retrieve-profile/', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('key')}`
+            },
+            body: JSON.stringify({
+                'user_id': window.location.hash.replace('#',''),
+            })
+        }).then(resp => {
+            if (!resp.ok) throw resp
+            return resp.json()
+        }).then(user => {
+            console.log(user)
+            document.querySelector('#profile-fullname').innerHTML = `${user.first_name} ${user.last_name}`
+            document.querySelector('#profile-about').innerHTML = user.about
+        }).catch(console.error)
+
+    }
+
+    main () {
+        window.user = localStorage.getItem('user')
+        if (window.user) {
+            window.user = JSON.parse(user)
+            this.displayData(window.user)
+        } else {
+            this.loadUserProfile()
+        }
+    }
+
+    editbio() {
+        let user = window
+        document.querySelector('#profile-about').innerHTML = `<input type="text" id="editedAbout" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" value="${window.user.about}">`
+        document.querySelector('#editbio').classList.add('hidden')
+        document.querySelector('#savebio').classList.remove('hidden')
+    }
+
+    savebio() {
+        const editedAbout = document.querySelector('#editedAbout').value
+        document.querySelector('#editbio').classList.remove('hidden')
+        document.querySelector('#savebio').classList.add('hidden')
+        document.querySelector('#profile-about').innerHTML = editedAbout
+        fetch('http://35.178.90.181:8000/v1/profile/data/', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('key')}`
+            },
+            body: JSON.stringify({
+                about: editedAbout
+            })
+        }).then(resp => {
+            if (!resp.ok) throw resp
+            return resp.json()
+        }).then(resp => {
+            this.displayData(resp)
+            window.user = resp
+        }).catch(console.error)
+    }
+
+    sendConnect() {
+        fetch('http://35.178.90.181:8000/v1/connections/send-request/', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': `Token ${localStorage.getItem('key')}`
+            },
+            body: JSON.stringify({
+                "partner_id": window.location.hash.replace('#','')
+            })
+        }).then(resp => {
+            if (!resp.ok) throw resp
+            return resp.json()
+        }).then(resp => {
+            document.querySelector('#connectbtn').innerHTML = 'Requested'
+            document.querySelector('#connectbtn').classList.add('cursor-not-allowed')
+        }).catch(err => {
+            document.querySelector('#connectbtn').innerHTML = 'Requested'
+            document.querySelector('#connectbtn').classList.add('cursor-not-allowed')
+        })
+    }
+
     render(){
         return(
             <div className="w-full max-w-6xl flex justify-center mx-auto">
@@ -19,7 +129,7 @@ class UserProfile extends React.Component{
                                     <div class="self-end mb-0 mx-6 text-lg font-bold tracking-wide">
                                         <h1 id="profile-fullname"></h1>
                                         <p>
-                                            <button onclick="sendConnect()" id="connectbtn" class="border border-purple-400 text-xs font-semibold text-white bg-purple-600 px-3 py-1 rounded">Connect</button>
+                                            <button onClick={() => this.sendConnect()} id="connectbtn" class="border border-purple-400 text-xs font-semibold text-white bg-purple-600 px-3 py-1 rounded">Connect</button>
                                             <button class="border border-purple-400 text-xs font-semibold px-3 py-1 rounded">Chat</button>
                                         </p>
                                     </div>
@@ -29,8 +139,8 @@ class UserProfile extends React.Component{
                             <div class="px-4 my-6">
                                 <div class="flex justify-between">
                                     <h1 class="font-bold text-xl">Bio</h1>
-                                    {/* <button onclick="editbio()" id="editbio" class="text-blue-400 hover:underline">Edit</button>
-                                    <button onclick="savebio()" id="savebio" class="text-blue-400 hover:underline hidden">Save</button> */}
+                                    {/* <button onClick={() => this.editbio()} id="editbio" class="text-blue-400 hover:underline">Edit</button>
+                                    <button onClick={() => this.savebio()} id="savebio" class="text-blue-400 hover:underline hidden">Save</button> */}
                                 </div>
                                 <p id="profile-about" class="text-sm">
                                     
