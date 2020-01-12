@@ -17,7 +17,8 @@
     "comments": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build": "postcss css/tailwind.css -o src/css/tailwind.css",
+    "build": "react-scripts build",
+    "buildcss": "postcss css/tailwind.css -o src/css/tailwind.css",
     "watch": "postcss css/tailwind.css -o src/css/tailwind.css --watch"
   },
   "eslintConfig": {
