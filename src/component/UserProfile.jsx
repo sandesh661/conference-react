@@ -90,22 +90,12 @@ class UserProfile extends React.Component{
                             <div class="my-6">
                                 <h2 class="font-semibold">Active Connections</h2>
                                 <div id="userList">
-                                    {/* <div class="flex align-middle my-4 leading-relaxed">
-                                        <img src="" alt="" class="w-8 h-8 bg-gray-700 rounded-full mr-4" />
-                                        <p class="h-8 leading-loose">Nombeko Mamballa</p>
+                                {userList.map((ele, i) => {return(
+                                    <div key={i} className="flex align-middle my-4 leading-relaxed">
+                                        <img src={ele.image} alt="" className="w-8 h-8 bg-gray-700 rounded-full mr-4" />
+                                        <p className="h-8 leading-loose">{ele.name}</p>
                                     </div>
-                                    <div class="flex align-middle my-4 leading-relaxed">
-                                        <img src="" alt="" class="w-8 h-8 bg-gray-700 rounded-full mr-4" />
-                                        <p class="h-8 leading-loose">Nombeko Mamballa</p>
-                                    </div>
-                                    <div class="flex align-middle my-4 leading-relaxed">
-                                        <img src="" alt="" class="w-8 h-8 bg-gray-700 rounded-full mr-4" />
-                                        <p class="h-8 leading-loose">Nombeko Mamballa</p>
-                                    </div>
-                                    <div class="flex align-middle my-4 leading-relaxed">
-                                        <img src="" alt="" class="w-8 h-8 bg-gray-700 rounded-full mr-4" />
-                                        <p class="h-8 leading-loose">Nombeko Mamballa</p>
-                                    </div> */}
+                                )})}
                                 </div>
                             </div>
                         </div>
