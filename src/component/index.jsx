@@ -21,6 +21,7 @@ class LoginPage extends React.Component{
             if (!resp.ok) throw resp
             return resp.json()
         }).then(resp => {
+            console.log(resp);
             localStorage.setItem('key', resp.key)
             window.location.href = 'discover'
         }).catch(() => {

@@ -1,12 +1,13 @@
-/*function initialize() {
+function initialize() {
     var locations = [];
+    let google = window.google
 
     window.map = new google.maps.Map(document.getElementById('map'), {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
-    var listener = google.maps.event.addListener(map, "idle", function () {
-        map.setZoom(14);
+    var listener = google.maps.event.addListener(window.map, "idle", function () {
+        window.map.setZoom(14);
         google.maps.event.removeListener(listener);
     });
 }
@@ -18,9 +19,9 @@ export function loadScript() {
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
-}*/
+}
 
 window.onload = function() {
-    // loadScript();
+    loadScript();
     // rangeSelector();
 }
