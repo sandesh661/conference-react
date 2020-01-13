@@ -14,6 +14,7 @@ const Discover = props => {
   const [selectedPlace, setSelectedPlace] = useState({});
   const [showInfoWindow, setShowInfoWindow] = useState(false)
   const [bounds, setBounds] = useState(new props.google.maps.LatLngBounds())
+  const [mapCenter, setMapCenter] = useState()
 
   useEffect(() => {
     loadProfilesInRange()
@@ -23,6 +24,7 @@ const Discover = props => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         function success(position) {
+          setMapCenter({ lat: Number(position.coords.latitude), lng: Number(position.coords.longitude) })
           sendLocation(position.coords.latitude, position.coords.longitude);
         },
         function error(err) {
@@ -237,7 +239,7 @@ const Discover = props => {
               <Map
                 google={props.google}
                 zoom={2}
-                initialCenter={{ lat: 47.444, lng: -122.176 }}
+                initialCenter={mapCenter}
                 bounds={bounds}
               >
                 {markers()}
