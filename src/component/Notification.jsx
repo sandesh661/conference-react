@@ -85,7 +85,26 @@ const Notification = ({ name, id, image, accepted }) => {
 };
 
 const Notifications = () => {
-  // const se
+  const [notifications, setNotifications] = useState([])
+
+  useEffect(() => {
+    fetch(baseUrl + "v1/profile/retrieve-notification/", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Token ${localStorage.getItem("key")}`
+      }
+    })
+      .then(resp => {
+        if (!resp.ok) throw resp;
+        return resp.json();
+      })
+      .then(resp => {
+        console.log(resp)
+      })
+      .catch(console.error);
+  }, [])
+  
   return (
     <div className="w-full max-w-6xl flex justify-center mx-auto">
       <LeftNavBar pageName="notification" />
@@ -97,9 +116,9 @@ const Notifications = () => {
                 <h1 className="font-bold text-2xl">Notifications</h1>
               </div>
 
-              <Notification name="Chinanza Akachi" id="123" image="https://randomuser.me/api/portraits/women/30.jpg" accepted />
-              <Notification name="John Doe" id="123" image="https://randomuser.me/api/portraits/women/30.jpg" />
-              <Notification name="John Doe" id="123" image="https://randomuser.me/api/portraits/women/30.jpg" accepted />
+              {notifications.map(notification => (
+                <Notification name={notification.name} id={notification.id} image={notification.user} accepted={notification.accepted} />
+              ))}
 
             </div>
           </div>
