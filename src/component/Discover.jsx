@@ -56,7 +56,7 @@ const Discover = props => {
       })
       .catch(console.error);
   }
-  const loadProfilesInRange = range => {
+  const loadProfilesInRange = () => {
     fetch(baseUrl + "v1/profile/nearby/?limit=20", {
       method: "POST",
       body: JSON.stringify({
@@ -235,7 +235,7 @@ const Discover = props => {
           </div>
 
           <div className="bg-white w-7/12">
-            <div id="map" className="w-full h-full">
+            <div id="map" className="w-full h-full relative">
               <Map
                 google={props.google}
                 zoom={2}
