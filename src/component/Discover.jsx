@@ -202,6 +202,8 @@ const Discover = props => {
                   id="myRange"
                   onChange={e => {
                     setRange(e.target.value);
+                  }}
+                  onBlur={() => {
                     loadProfilesInRange();
                   }}
                 />
