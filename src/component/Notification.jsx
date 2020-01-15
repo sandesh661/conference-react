@@ -5,6 +5,8 @@ import { userList } from "../utils/userData";
 import { baseUrl } from "../utils/userData";
 
 const Notification = ({ name, id, image, accepted }) => {
+  const [accept, setAccept] = useState(accepted)
+
   const acceptRequest = () => {
     fetch(baseUrl + "v1/connections/accept-request/", {
       method: "POST",
@@ -22,6 +24,7 @@ const Notification = ({ name, id, image, accepted }) => {
       })
       .then(resp => {
         console.log(resp)
+        setAccept(true)
       })
       .catch(console.error);
   }
@@ -41,7 +44,7 @@ const Notification = ({ name, id, image, accepted }) => {
         return resp.json();
       })
       .then(resp => {
-        console.log(resp)
+        window.location.reload()
       })
       .catch(console.error);
   }
@@ -62,7 +65,7 @@ const Notification = ({ name, id, image, accepted }) => {
       <p className="text-sm">{name} {accepted ? 'accepted your' : 'sent you a'} connection request</p>
       <div className="w-full border-gray-300 border-b-2 py-2 text-sm">
         <button
-          className={`text-purple-800 font-semibold pr-8 hover:underline ${accepted===true ? 'hidden' : ''}`}
+          className={`text-purple-800 font-semibold pr-8 hover:underline ${accept===true ? 'hidden' : ''}`}
           onClick={declineRequest}
         >
           Delete
@@ -74,7 +77,7 @@ const Notification = ({ name, id, image, accepted }) => {
           View profile
         </Link>
         <button
-          className={`text-purple-800 font-semibold pr-8 hover:underline ${accepted===true ? 'hidden' : ''}`}
+          className={`text-purple-800 font-semibold pr-8 hover:underline ${accept===true ? 'hidden' : ''}`}
           onClick={acceptRequest}
         >
           Accept
