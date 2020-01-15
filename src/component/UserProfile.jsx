@@ -54,6 +54,7 @@ class UserProfile extends React.Component {
         ).innerHTML = `${user.first_name} ${user.last_name}`;
         document.querySelector("#profile-about").innerHTML = user.about;
         if (user.is_connection_sent) document.querySelector("#connectbtn").innerHTML = "Requested";
+        if (user.connection_state === 'accepted') document.querySelector("#connectbtn").remove();
       })
       .catch(console.error);
   };
