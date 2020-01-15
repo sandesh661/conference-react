@@ -59,7 +59,7 @@ const Notification = ({ name, id, image, accepted }) => {
           <span className="pl-10 text-gray-500 text-xs">1hr</span>
         </p>
       </div>
-      <p className="text-sm">{name} sent you a connection request</p>
+      <p className="text-sm">{name} {accepted ? 'accepted your' : 'sent you a'} connection request</p>
       <div className="w-full border-gray-300 border-b-2 py-2 text-sm">
         <button
           className={`text-purple-800 font-semibold pr-8 hover:underline ${accepted===true ? 'hidden' : ''}`}
