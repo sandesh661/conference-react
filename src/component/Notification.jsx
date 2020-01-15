@@ -62,7 +62,7 @@ const Notification = ({ name, id, image, accepted }) => {
       <p className="text-sm">{name} sent you a connection request</p>
       <div className="w-full border-gray-300 border-b-2 py-2 text-sm">
         <button
-          className={`text-purple-800 font-semibold pr-8 hover:underline ${accepted ? 'hidden' : ''}`}
+          className={`text-purple-800 font-semibold pr-8 hover:underline ${accepted===true ? 'hidden' : ''}`}
           onClick={declineRequest}
         >
           Delete
@@ -74,7 +74,7 @@ const Notification = ({ name, id, image, accepted }) => {
           View profile
         </Link>
         <button
-          className={`text-purple-800 font-semibold pr-8 hover:underline ${accepted ? 'hidden' : ''}`}
+          className={`text-purple-800 font-semibold pr-8 hover:underline ${accepted===true ? 'hidden' : ''}`}
           onClick={acceptRequest}
         >
           Accept
@@ -100,7 +100,7 @@ const Notifications = () => {
         return resp.json();
       })
       .then(resp => {
-        console.log(resp)
+        setNotifications(resp)
       })
       .catch(console.error);
   }, [])
@@ -116,8 +116,15 @@ const Notifications = () => {
                 <h1 className="font-bold text-2xl">Notifications</h1>
               </div>
 
+              {notifications.length <= 0 ? (
+                <>
+                <br/>
+                <p>You're all caught up!</p>
+                </>
+              ) : ''}
+
               {notifications.map(notification => (
-                <Notification name={notification.name} id={notification.id} image={notification.user} accepted={notification.accepted} />
+                <Notification name={`${notification.first_name} ${notification.last_name}`} id={notification.sender_id} image={notification.user} accepted={notification.connection_state === 'accepted'} />
               ))}
 
             </div>
