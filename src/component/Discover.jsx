@@ -203,7 +203,7 @@ const Discover = props => {
                   onChange={e => {
                     setRange(e.target.value);
                   }}
-                  onBlur={() => {
+                  onMouseUp={() => {
                     loadProfilesInRange();
                   }}
                 />
